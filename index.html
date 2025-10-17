@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Happy Diwali ✨</title>
+<style>
+/* ====== Global Styles ====== */
+*{margin:0;padding:0;box-sizing:border-box;}
+body{
+  font-family:'Georgia',serif;
+  overflow-x:hidden;
+  background:#0a0a0a;
+  color:white;
+  transition:background 1s ease;
+}
+
+/* ====== Welcome Screen ====== */
+#welcomeScreen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  background:radial-gradient(circle at center,#1a0a00,#0a0a0a);
+  position:relative;
+  overflow:hidden;
+}
+.particles{position:absolute;width:100%;height:100%;overflow:hidden;}
+.particle{
+  position:absolute;
+  background:radial-gradient(circle,#ffd700,transparent);
+  border-radius:50%;
+  animation:float 8s infinite ease-in-out;
+  opacity:.6;
+}
+@keyframes float{
+  0%,100%{transform:translateY(0)translateX(0);}
+  50%{transform:translateY(-100px)translateX(50px);}
+}
+.main-title{
+  font-size:3.5rem;
+  background:linear-gradient(45deg,#ffd700,#ff6b35,#ffd700);
+  background-size:200% 200%;
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:gradientShift 3s ease infinite;
+  text-align:center;
+  margin-bottom:1rem;
+  z-index:10;
+  text-shadow:0 0 30px rgba(255,215,0,0.5);
+}
+@keyframes gradientShift{
+  0%,100%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+}
+.recipient-name{
+  font-size:2rem;
+  color:#ffd700;
+  margin-bottom:3rem;
+  z-index:10;
+  animation:glow 2s ease-in-out infinite;
+}
+@keyframes glow{
+  0%,100%{text-shadow:0 0 20px #ffd700,0 0 30px #ffd700;}
+  50%{text-shadow:0 0 30px #ffd700,0 0 50px #ff6b35;}
+}
+.cards-container{
+  display:flex;
+  gap:2rem;
+  flex-wrap:wrap;
+  justify-content:center;
+  z-index:10;
+  padding:0 1rem;
+}
+.card{
+  width:200px;height:250px;
+  background:linear-gradient(135deg,#1a1a1a,#2a2a2a);
+  border-radius:20px;
+  display:flex;flex-direction:column;justify-content:center;align-items:center;
+  cursor:pointer;transition:all .4s ease;
+  border:2px solid #ffd700;
+  position:relative;overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:-50%;left:-50%;
+  width:200%;height:200%;
+  background:radial-gradient(circle,rgba(255,215,0,0.1),transparent);
+  transition:all .6s ease;opacity:0;
+}
+.card:hover::before{opacity:1;transform:rotate(180deg);}
+.card:hover{
+  transform:translateY(-20px)scale(1.05);
+  box-shadow:0 20px 60px rgba(255,215,0,0.4);
+  border-color:#ff6b35;
+}
+.card-icon{font-size:4rem;margin-bottom:1rem;filter:drop-shadow(0 0 10px currentColor);}
+.card-title{font-size:1.5rem;color:#ffd700;}
+
+/* ====== Animation Screen ====== */
+#animationScreen{display:none;min-height:100vh;position:relative;overflow:hidden;}
+#canvas{position:absolute;top:0;left:0;width:100%;height:100%;}
+
+/* ====== Wish Screen ====== */
+#wishScreen{
+  display:none;min-height:100vh;
+  justify-content:center;align-items:center;flex-direction:column;
+  padding:2rem;position:relative;overflow:hidden;
+  text-align:center;transition:background 1s ease;
+}
+.wish-content{z-index:10;max-width:800px;}
+.wish-title{
+  font-size:4rem;
+  background:linear-gradient(45deg,#ffd700,#ff6b35);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  margin-bottom:2rem;animation:fadeInUp 1s ease;
+}
+.wish-message{
+  font-size:1.5rem;line-height:2;
+  color:#ffd700;margin-bottom:2rem;
+  animation:fadeInUp 1.5s ease;
+}
+.from-text{font-size:1.2rem;color:#ff6b35;font-style:italic;animation:fadeInUp 2s ease;}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+.restart-btn{
+  margin-top:3rem;padding:1rem 3rem;font-size:1.2rem;
+  background:linear-gradient(45deg,#ffd700,#ff6b35);
+  border:none;border-radius:50px;color:#0a0a0a;font-weight:bold;cursor:pointer;
+  transition:all .3s ease;animation:fadeInUp 2.5s ease;
+}
+.restart-btn:hover{transform:scale(1.1);box-shadow:0 10px 30px rgba(255,215,0,0.5);}
+.floating-diya{position:absolute;font-size:2rem;animation:floatDiya 6s infinite ease-in-out;opacity:.7;}
+@keyframes floatDiya{0%,100%{transform:translateY(0)rotate(0deg);}50%{transform:translateY(-50px)rotate(10deg);}}
+@media(max-width:768px){
+  .main-title{font-size:2rem;}
+  .recipient-name{font-size:1.5rem;}
+  .card{width:150px;height:200px;}
+  .card-icon{font-size:3rem;}
+  .wish-title{font-size:2.5rem;}
+  .wish-message{font-size:1.2rem;}
+}
+/* Typewriter effect */
+.typewriter span{
+  display:inline-block;
+  animation:blink 1s infinite step-end;
+}
+@keyframes blink{50%{opacity:0;}}
+</style>
+</head>
+<body>
+<!-- Welcome Screen -->
+<div id="welcomeScreen">
+  <div class="particles" id="particles"></div>
+  <h1 class="main-title">✨ Light Up Your Diwali ✨</h1>
+  <p class="recipient-name">Dear <span id="recipientName">Friend</span></p>
+  <div class="cards-container">
+    <div class="card" onclick="startAnimation('diya')">
+      <div class="card-icon">🪔</div><div class="card-title">Diya</div>
+    </div>
+    <div class="card" onclick="startAnimation('fireworks')">
+      <div class="card-icon">🎆</div><div class="card-title">Fireworks</div>
+    </div>
+    <div class="card" onclick="startAnimation('rangoli')">
+      <div class="card-icon">🎨</div><div class="card-title">Rangoli</div>
+    </div>
+  </div>
+</div>
+
+<!-- Animation Screen -->
+<div id="animationScreen"><canvas id="canvas"></canvas></div>
+
+<!-- Wish Screen -->
+<div id="wishScreen">
+  <div class="wish-content">
+    <h1 class="wish-title">✨ Happy Diwali ✨</h1>
+    <p class="wish-message" id="wishText"></p>
+    <p class="from-text">With warm wishes,<br>From <strong>Sunny Chauhan</strong> to <strong id="wishRecipientName">You</strong></p>
+    <button class="restart-btn" onclick="restart()">🎉 Create Another Wish</button>
+  </div>
+  <div class="floating-diya" style="top:10%;left:10%;">🪔</div>
+  <div class="floating-diya" style="top:20%;right:15%;animation-delay:1s;">🪔</div>
+  <div class="floating-diya" style="bottom:15%;left:20%;animation-delay:2s;">🪔</div>
+  <div class="floating-diya" style="bottom:25%;right:10%;animation-delay:1.5s;">🪔</div>
+</div>
+
+<script>
+// ===== Config =====
+const wishMessages={
+  diya:"🪔 May the divine light of diyas fill your life with warmth, happiness, and endless positivity.",
+  fireworks:"🎆 Let the night sky burst with colors and joy — wishing you a sparkling Diwali full of laughter and success!",
+  rangoli:"🎨 May your life be painted with vibrant colors of love, prosperity, and happiness — just like a beautiful rangoli."
+};
+let currentAnimationType=null;
+
+// ===== Recipient =====
+function getRecipientName(){
+  const urlParams=new URLSearchParams(window.location.search);
+  return urlParams.get('name')||'Friend';
+}
+const recipientName=getRecipientName();
+document.getElementById('recipientName').textContent=recipientName;
+document.getElementById('wishRecipientName').textContent=recipientName;
+
+// ===== Particles =====
+function createParticles(){
+  const container=document.getElementById('particles');
+  for(let i=0;i<30;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    p.style.width=Math.random()*4+2+'px';
+    p.style.height=p.style.width;
+    p.style.left=Math.random()*100+'%';
+    p.style.top=Math.random()*100+'%';
+    p.style.animationDelay=Math.random()*5+'s';
+    p.style.animationDuration=Math.random()*5+5+'s';
+    container.appendChild(p);
+  }
+}
+createParticles();
+
+// ===== Canvas Setup =====
+const canvas=document.getElementById('canvas');
+const ctx=canvas.getContext('2d');
+let animationId,particles=[],rangoliProgress=0;
+function resizeCanvas(){canvas.width=innerWidth;canvas.height=innerHeight;}
+resizeCanvas();addEventListener('resize',resizeCanvas);
+
+class Particle{
+  constructor(x,y,color,velocity,size){
+    this.x=x;this.y=y;this.color=color;this.velocity=velocity;this.size=size;this.alpha=1;this.decay=Math.random()*0.015+0.005;
+  }
+  draw(){ctx.save();ctx.globalAlpha=this.alpha;ctx.fillStyle=this.color;ctx.beginPath();ctx.arc(this.x,this.y,this.size,0,Math.PI*2);ctx.fill();ctx.restore();}
+  update(){this.velocity.y+=0.05;this.x+=this.velocity.x;this.y+=this.velocity.y;this.alpha-=this.decay;}
+}
+
+// ===== Diya Animation =====
+function animateDiya(){
+  ctx.fillStyle='#0a0a0a';ctx.fillRect(0,0,canvas.width,canvas.height);
+  if(Math.random()<0.1){
+    const x=Math.random()*canvas.width,y=canvas.height;
+    particles.push({x,y,size:Math.random()*20+15,speedY:-Math.random()*2-1,speedX:(Math.random()-0.5)*0.5,alpha:1,glow:Math.random()*20+10});
+  }
+  particles=particles.filter(p=>{
+    const grad=ctx.createRadialGradient(p.x,p.y,0,p.x,p.y,p.size+p.glow);
+    grad.addColorStop(0,`rgba(255,215,0,${p.alpha})`);
+    grad.addColorStop(0.5,`rgba(255,107,53,${p.alpha*0.5})`);
+    grad.addColorStop(1,'rgba(255,215,0,0)');
+    ctx.fillStyle=grad;ctx.beginPath();ctx.arc(p.x,p.y,p.size+p.glow,0,Math.PI*2);ctx.fill();
+    ctx.save();ctx.globalAlpha=p.alpha;ctx.font=`${p.size}px Arial`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('🪔',p.x,p.y);ctx.restore();
+    p.y+=p.speedY;p.x+=p.speedX;p.alpha-=0.005;
+    return p.alpha>0&&p.y>-50;
+  });
+  animationId=requestAnimationFrame(animateDiya);
+}
+
+// ===== Fireworks Animation =====
+function animateFireworks(){
+  ctx.fillStyle='rgba(10,10,10,0.1)';
+  ctx.fillRect(0,0,canvas.width,canvas.height);
+  if(Math.random()<0.03){
+    const x=Math.random()*canvas.width;
+    const y=Math.random()*canvas.height*0.5+canvas.height*0.1;
+    const colors=['#ffd700','#ff6b35','#ff1744','#00e676','#00b0ff','#e040fb'];
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    for(let i=0;i<100;i++){
+      const angle=(Math.PI*2*i)/100,speed=Math.random()*4+2;
+      particles.push(new Particle(x,y,color,{x:Math.cos(angle)*speed,y:Math.sin(angle)*speed},Math.random()*3+2));
+    }
+  }
+  particles=particles.filter(p=>{p.draw();p.update();return p.alpha>0;});
+  animationId=requestAnimationFrame(animateFireworks);
+}
+
+// ===== Rangoli Animation =====
+let rangoliColors=['#FF1744','#E040FB','#00E676','#00B0FF','#FFD700','#FF6B35'];
+function animateRangoli(){
+  ctx.fillStyle='#0a0a0a';ctx.fillRect(0,0,canvas.width,canvas.height);
+  const cx=canvas.width/2,cy=canvas.height/2;rangoliProgress+=0.5;
+  for(let layer=0;layer<6;layer++){
+    const r=50+layer*40,petals=8+layer*2;
+    for(let i=0;i<petals;i++){
+      const angle=(Math.PI*2*i)/petals,prog=Math.min(rangoliProgress-layer*20,100)/100;
+      if(prog>0){
+        ctx.save();ctx.translate(cx,cy);ctx.rotate(angle);
+        const grad=ctx.createRadialGradient(0,-r,0,0,-r,30);
+        grad.addColorStop(0,rangoliColors[layer%rangoliColors.length]);grad.addColorStop(1,'transparent');
+        ctx.fillStyle=grad;ctx.globalAlpha=prog;ctx.beginPath();ctx.ellipse(0,-r,15,30,0,0,Math.PI*2);ctx.fill();
+        ctx.fillStyle='#FFD700';ctx.beginPath();ctx.arc(0,-r,5,0,Math.PI*2);ctx.fill();
+        ctx.restore();
+      }
+    }
+  }
+  if(rangoliProgress<200)animationId=requestAnimationFrame(animateRangoli);
+}
+
+// ===== Reset =====
+function resetCanvas(){
+  cancelAnimationFrame(animationId);
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  particles=[];rangoliProgress=0;
+}
+
+// ===== Start Animation =====
+function startAnimation(type){
+  currentAnimationType=type;
+  resetCanvas();
+  document.getElementById('welcomeScreen').style.display='none';
+  document.getElementById('animationScreen').style.display='block';
+  if(type==='diya'){animateDiya();}
+  else if(type==='fireworks'){animateFireworks();}
+  else if(type==='rangoli'){animateRangoli();}
+  setTimeout(()=>{cancelAnimationFrame(animationId);showWish();},5000);
+}
+
+// ===== Typewriter Effect =====
+function typeWriterEffect(text,elementId,delay=40){
+  const element=document.getElementById(elementId);
+  element.textContent='';
+  let i=0;
+  const interval=setInterval(()=>{
+    element.textContent=text.substring(0,i);
+    i++;
+    if(i>text.length)clearInterval(interval);
+  },delay);
+}
+
+// ===== Show Wish =====
+function showWish(){
+  document.getElementById('animationScreen').style.display='none';
+  const wishScreen=document.getElementById('wishScreen');
+  wishScreen.style.display='flex';
+  let bg='#1a0a00';
+  wishScreen.style.background=bg;
+  typeWriterEffect(wishMessages[currentAnimationType],'wishText');
+}
+
+// ===== Restart =====
+function restart(){
+  resetCanvas();
+  document.getElementById('wishScreen').style.display='none';
+  document.getElementById('welcomeScreen').style.display='flex';
+}
+</script>
+</body>
+</html>
